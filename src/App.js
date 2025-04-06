@@ -3,28 +3,31 @@ import { useState, useEffect } from "react";
 
 
 function App() {
-  const [counter, setValue] = useState(0);
-  const [keyword, setKeyword] = useState("");
-  const onClick = () => setValue((val) => val + 1);
-  const onChange = (event) => setKeyword(event.target.value);
-  console.log("i run all the time");
-  const iRunOnlyOnce = () => {
-    console.log("i run only once");
-  }
-  useEffect(() => {
-    if(keyword !== ""){
-      console.log("SEARTCH FOR", keyword);
+  const [toDo, setToDo] = useState("");
+  const [toDos, setToDos] = useState([]);
+  const onChange = (event) => setToDo(event.target.value);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (toDo == ""){
+      return;
     }
-  }, [keyword]);
-  useEffect(iRunOnlyOnce, []);
+    setToDos((currentArray) => [toDo, ...currentArray]);
+    setToDo("");
+  };
   return (
     <div>
-      <h1>Welcome back</h1>
-      <input value={keyword} onChange={onChange} type="text" placeholder="Searching..." />
-      <h3>the num is {counter}</h3>
-      <button onClick={onClick}>Click Me!</button>
+      <h1>My To Dos ({toDos.length})</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          onChange={onChange}
+          value={toDo}
+          type="text"
+          placeHolder="Write your to do..."
+        />
+        <button>Add To Do</button>
+      </form>
     </div>
-  );
+  )
 }
 
 export default App;
