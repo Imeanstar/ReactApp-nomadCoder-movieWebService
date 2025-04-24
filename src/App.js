@@ -1,6 +1,7 @@
 //실행시 npm start 를 cmd에 입력
 import React from "react";
 import { useState, useEffect } from "react";
+import Movie from "./components/Movie";
 
 
 function App() {
@@ -26,14 +27,13 @@ function App() {
     {loading ? <h1>loading...</h1> : (
       <div>{
         movies.map(movie => 
-        <div key={movie.id}>
-          <img src={movie.medium_cover_image} />
-          <h2>{movie.title}</h2>
-          <p>{movie.summary}</p>
-          <ul>
-            {movie.genres.map(genre => <li key={genre}>{genre}</li>)}
-          </ul>
-        </div>
+          <Movie
+            key={movie.id} 
+            medium_cover_image={movie.medium_cover_image} 
+            title={movie.title} 
+            summary ={movie.summary}
+            genres={movie.genres}
+          />
         )}
       </div>)
     }
